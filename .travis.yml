@@ -41,6 +41,7 @@ install:
   - export RABBITMQC_DIR=`pwd`/../../_install
   - cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${RABBITMQC_DIR} -DBUILD_EXAMPLES=OFF -DBUILD_TESTS=OFF -DBUILD_TOOLS=OFF .
   - cmake --build . --target install
+  - ls ${RABBITMQC_DIR}/*
   - popd
 
 before_script:
@@ -52,4 +53,5 @@ before_script:
 script:
   - cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="${FLAGS}" -DCMAKE_INSTALL_PREFIX=../_install -DENABLE_TESTING=ON -DRabbitmqc_DIR=${RABBITMQ_C_DIR} ..
   - cmake --build . --target install
+  - ls ../_install/*
   - AMQP_BROKER=localhost ASAN_OPTIONS=detect_leaks=1 ctest -V .
